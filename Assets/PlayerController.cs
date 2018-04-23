@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetAxis("Horizontal") != 0)
+            transform.position += new Vector3(Input.GetAxis("Horizontal"), 0);
 	}
+    
+    public void Move(Vector2 direction)
+    {
+
+    }
 }
