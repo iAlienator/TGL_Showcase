@@ -8,7 +8,7 @@ public class MenuManager : MonoBehaviour
     // Menu functionality for starting the game.
     public void StartGame()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Game");
     }
 
     // Menu functionality for exiting the game.
