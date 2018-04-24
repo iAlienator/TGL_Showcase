@@ -23,22 +23,23 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
+
         // Creates 2 linecasts from the center of the player to the points to check for ground tiles.
         //Vector2 offset0 = new Vector3(transform.position.x - GroundCheck[0].position.x, transform.position.y);
         //Vector2 offset1 = new Vector3(transform.position.x - GroundCheck[1].position.x, transform.position.y);
-        if (Physics2D.Linecast(transform.position, GroundCheck[0].position, 1 << LayerMask.NameToLayer("Ground")) || 
-            Physics2D.Linecast(transform.position, GroundCheck[1].position, 1 << LayerMask.NameToLayer("Ground")))
-        {
-            if (!isGrounded)
-            {
-                isGrounded = true;
-                jumpsLeft = JumpCount;
-            }
-        }
-        else
-        {
-            isGrounded = false;
-        }
+        //if (Physics2D.Linecast(transform.position, GroundCheck[0].position, 1 << LayerMask.NameToLayer("Ground")) ||
+        //    Physics2D.Linecast(transform.position, GroundCheck[1].position, 1 << LayerMask.NameToLayer("Ground")))
+        //{
+        //    if (!isGrounded)
+        //    {
+        //        isGrounded = true;
+        //        jumpsLeft = JumpCount;
+        //    }
+        //}
+        //else
+        //{
+        //    isGrounded = false;
+        //}
 
         // Jump if possible.
         if (Input.GetKeyDown("space") && jumpsLeft > 0)
@@ -50,14 +51,14 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
 
         if (horizontal * rigidBody2D.velocity.x < MovementSpeed)
-            rigidBody2D.AddForce(Vector2.right * horizontal * 2000f);
+            rigidBody2D.AddForce(Vector2.right * horizontal * 300f);
 
         if (Mathf.Abs(rigidBody2D.velocity.x) > MovementSpeed)
-            rigidBody2D.velocity = new Vector2(Mathf.Sign(rigidBody2D.velocity.x) * 5f, rigidBody2D.velocity.y);
+            rigidBody2D.velocity = new Vector2(Mathf.Sign(rigidBody2D.velocity.x) * MovementSpeed, rigidBody2D.velocity.y);
 
         // Accelerates the jump when moving down.
-        if (rigidBody2D.velocity.y < 0)
-            rigidBody2D.velocity += (Vector2.up * Physics2D.gravity.y) * JumpDownAcceleration;
+        //if (rigidBody2D.velocity.y < 0)
+        //    rigidBody2D.velocity += new Vector2(rigidBody2D.velocity.x, Physics2D.gravity.y * JumpDownAcceleration);
     }
 
     private void Jump()
