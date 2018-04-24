@@ -384,6 +384,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 48.3
       objectReference: {fileID: 0}
+    - target: {fileID: 114534501616753576, guid: a2be07d442ba8f4458aad9310ac72eff,
+        type: 2}
+      propertyPath: m_Text
+      value: tgl showcase
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114374727819200366, guid: a2be07d442ba8f4458aad9310ac72eff, type: 2}
     - {fileID: 114034640238615906, guid: a2be07d442ba8f4458aad9310ac72eff, type: 2}
