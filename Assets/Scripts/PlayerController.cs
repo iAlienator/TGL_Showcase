@@ -6,9 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public float MovementSpeed;
     public int JumpCount;
-    public float JumpHeight;
+    public float JumpVelocity;
     public float JumpDownAcceleration;
-    public Transform GroundCheck;
+    public Transform[] GroundCheck;
 
     private Rigidbody2D rigidBody2D;
     private bool isGrounded;
@@ -23,16 +23,26 @@ public class PlayerController : MonoBehaviour
 	
 	void Update ()
     {
-        isGrounded = Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
+        // Creates 2 linecasts from the center of the player to the points to check for ground tiles.
+        //Vector2 offset0 = new Vector3(transform.position.x - GroundCheck[0].position.x, transform.position.y);
+        //Vector2 offset1 = new Vector3(transform.position.x - GroundCheck[1].position.x, transform.position.y);
+        if (Physics2D.Linecast(transform.position, GroundCheck[0].position, 1 << LayerMask.NameToLayer("Ground")) || 
+            Physics2D.Linecast(transform.position, GroundCheck[1].position, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            if (!isGrounded)
+            {
+                isGrounded = true;
+                jumpsLeft = JumpCount;
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
 
-        if (Input.GetKeyDown("space") && (jumpsLeft > 0 || isGrounded))
+        // Jump if possible.
+        if (Input.GetKeyDown("space") && jumpsLeft > 0)
             Jump();
-
-        //if (Input.GetAxis("Horizontal") != 0)
-        //    rigidBody2D.AddForce(Vector2.right * Input.GetAxis("Horizontal"), ForceMode2D.Impulse);
-
-        //if (Input.GetKeyDown("space") && jumpsLeft > 0)
-        //    Jump();
     }
 
     private void FixedUpdate()
@@ -40,56 +50,39 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxis("Horizontal");
 
         if (horizontal * rigidBody2D.velocity.x < MovementSpeed)
-            rigidBody2D.AddForce(Vector2.right * horizontal * 1000f);
+            rigidBody2D.AddForce(Vector2.right * horizontal * 2000f);
 
         if (Mathf.Abs(rigidBody2D.velocity.x) > MovementSpeed)
             rigidBody2D.velocity = new Vector2(Mathf.Sign(rigidBody2D.velocity.x) * 5f, rigidBody2D.velocity.y);
 
+        // Accelerates the jump when moving down.
         if (rigidBody2D.velocity.y < 0)
             rigidBody2D.velocity += (Vector2.up * Physics2D.gravity.y) * JumpDownAcceleration;
-
-        //if (Input.GetAxis("Horizontal") != 0)
-        //    rigidBody2D.AddForce(Vector2.right * Input.GetAxis("Horizontal"), ForceMode2D.Impulse);
-        //if (Input.GetAxis("Vertical") != 0)
-        //    transform.position += new Vector3(0, Input.GetAxis("Vertical") * 0.2f);
-
-        //if (Input.GetKeyDown("space") && jumpsLeft > 0)
-        //    Jump();
     }
 
     private void Jump()
     {
-        //Debug.Log(isGrounded);
-
-        if (isGrounded)
-            jumpsLeft = JumpCount;
-
         rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, 0);
-        rigidBody2D.AddForce(Vector2.up * JumpHeight, ForceMode2D.Impulse);
-        //rigidBody2D.velocity = new Vector2(0, JumpHeight);
+        rigidBody2D.AddForce(Vector2.up * JumpVelocity, ForceMode2D.Impulse);
+
         jumpsLeft--;
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
+    //private void OnCollisionStay2D(Collision2D collision)
     //{
-    //    if (!isGrounded)
-    //    {
-    //        if (collision.gameObject.tag == "Ground")
-    //        {
-    //            isGrounded = true;
-    //            jumpsLeft = JumpCount;
-    //        }
-    //    }
-    //}
+    //    //isGrounded = true;
 
-    //private void OnCollisionExit2D(Collision2D collision)
-    //{
-    //    if (isGrounded)
+    //    if (!isGrounded && collision.gameObject.tag == "Ground")
     //    {
-    //        if (collision.gameObject.tag == "Ground")
-    //        {
-    //            isGrounded = false;
-    //        }
+    //        isGrounded = true;
+    //        //Debug.Log(isGrounded);
     //    }
+    //    //    if (collision.gameObject.tag == "Ground")
+    //    //    {
+    //    //        var groudPos = collision.gameObject.transform.position;
+    //    //        Debug.Log(groudPos);
+    //    //        //if (groudPos.y <= GroundCheck.position.y + 0.5f)
+    //    //        //    Debug.Log("LUL");
+    //    //    }
     //}
 }
