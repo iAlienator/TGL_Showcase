@@ -294,6 +294,36 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114787260760654314, guid: d287288bba8d73e469ccb0cb6236bba3,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114787260760654314, guid: d287288bba8d73e469ccb0cb6236bba3,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114787260760654314, guid: d287288bba8d73e469ccb0cb6236bba3,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114406738302803924, guid: d287288bba8d73e469ccb0cb6236bba3,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114406738302803924, guid: d287288bba8d73e469ccb0cb6236bba3,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114406738302803924, guid: d287288bba8d73e469ccb0cb6236bba3,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d287288bba8d73e469ccb0cb6236bba3, type: 2}
   m_IsPrefabParent: 0
