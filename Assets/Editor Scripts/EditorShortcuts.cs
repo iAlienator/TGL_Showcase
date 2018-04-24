@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if (UNITY_EDITOR)
+using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
@@ -16,3 +17,4 @@ public class EditorShortcuts : ScriptableObject
         EditorApplication.ExecuteMenuItem("Edit/Play");
     }
 }
+#endif
