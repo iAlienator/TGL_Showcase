@@ -336,6 +336,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114347619101697834, guid: 64ad56f737bb57347a83f4638964efc0,
+        type: 2}
+      propertyPath: JumpCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64ad56f737bb57347a83f4638964efc0, type: 2}
   m_IsPrefabParent: 0
@@ -557,6 +562,10 @@ Prefab:
         type: 2}
       propertyPath: m_Tiles.Array.data[14].second.m_ColliderType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1266863923869402, guid: c9775de5fdf627249bd56af70f2599e2, type: 2}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9775de5fdf627249bd56af70f2599e2, type: 2}
