@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public int DeathCount { get; private set; }
+    public bool IsDead { get; private set; }
     public GameObject Checkpoint;
     public float MovementSpeed;
     public float JumpVelocity;
@@ -14,7 +16,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rigidBody2D;
     private float horizontalInput;
-    private bool grounded;
+    private bool isGrounded;
     private bool touchingPlatform;
     private float previousVelocityY;
     private int jumpsLeft;
@@ -35,17 +37,21 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // Checks if the player is grounded on a platform, also resetting the jumps left.
+        // Checks if the player is grounded and on a platform
         if (rigidBody2D.velocity.y == 0 && previousVelocityY == 0 && touchingPlatform)
         {
+            isGrounded = true;
             jumpsLeft = JumpCount;
-            grounded = true;
+            jumpGraceLeft = JumpGracePeriod;
         }
+        // Else if player is deemed falling.
         else
         {
-            if (grounded)
-                jumpGraceLeft = JumpGracePeriod;
-            grounded = false;
+            // Decrement the delta time from jump grace timer.
+            if (jumpGraceLeft > 0)
+                jumpGraceLeft -= Time.deltaTime;
+
+            isGrounded = false;
         }
 
         // Accelerate downwards momentum.
@@ -65,7 +71,7 @@ public class Player : MonoBehaviour
     public void Jump()
     {
         // Allow jumping if player is grounded, or if player has already jumped once and has jumps left.
-        if ((grounded || jumpsLeft < JumpCount) && jumpsLeft > 0)
+        if ((isGrounded || jumpsLeft < JumpCount || jumpGraceLeft > 0) && jumpsLeft > 0)
         {
             rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, JumpVelocity);
             jumpsLeft--;
@@ -74,6 +80,8 @@ public class Player : MonoBehaviour
 
     public void MoveToCheckpoint()
     {
+        IsDead = false;
+        GetComponent<Player>().enabled = true;
         transform.position = new Vector3(Checkpoint.transform.position.x, Checkpoint.transform.position.y, transform.position.z);
     }
 
@@ -101,12 +109,19 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.tag == "Lethal")
         {
-            GameManager.Instance.Restart();
+            DeathCount++;
+            IsDead = true;
+            GetComponent<Player>().enabled = false;
         }
 
         if(collision.gameObject.tag == "Checkpoint")
         {
-            Checkpoint = collision.gameObject;
+            var checkpointController = collision.gameObject.GetComponent<CheckpointController>();
+            if (!checkpointController.IsCurrent)
+            {
+                checkpointController.SetAsCurrentCheckpoint();
+                Checkpoint = collision.gameObject;
+            }
         }
     }
 }
