@@ -87,6 +87,11 @@ public class Player : MonoBehaviour
 
     public void SetHorizontalInput(float value)
     {
+        if (!GetComponent<SpriteRenderer>().flipX && value < 0)
+            GetComponent<SpriteRenderer>().flipX = true;
+        else if(GetComponent<SpriteRenderer>().flipX && value > 0)
+            GetComponent<SpriteRenderer>().flipX = false;
+
         horizontalInput = value;
     }
 

@@ -31,15 +31,6 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.RightArrow))
             RightReleased();
 #endif
-        //YouDiedImage.enabled = Player.IsDead;
-
-        //if(Player.IsDead)
-        //{
-        //    if (Input.GetMouseButtonDown(0))
-        //    {
-        //        GameManager.Instance.Restart();
-        //    }
-        //}
     }
 
     public void SetDeathCount(int value)
