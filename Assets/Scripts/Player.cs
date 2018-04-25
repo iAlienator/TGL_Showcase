@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        // Set the initial spawn point.
         if (Checkpoint != null)
             MoveToCheckpoint();
 
@@ -80,13 +81,16 @@ public class Player : MonoBehaviour
 
     public void MoveToCheckpoint()
     {
+        // Make sure the player isn't dead and the script is enabled when moving back to the checkpoint.
         IsDead = false;
         GetComponent<Player>().enabled = true;
+
         transform.position = new Vector3(Checkpoint.transform.position.x, Checkpoint.transform.position.y, transform.position.z);
     }
 
     public void SetHorizontalInput(float value)
     {
+        // Flip the sprite based on the received input value.
         if (!GetComponent<SpriteRenderer>().flipX && value < 0)
             GetComponent<SpriteRenderer>().flipX = true;
         else if(GetComponent<SpriteRenderer>().flipX && value > 0)
@@ -112,6 +116,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Collision with lethal trigger.
         if (collision.gameObject.tag == "Lethal")
         {
             DeathCount++;
@@ -119,9 +124,11 @@ public class Player : MonoBehaviour
             GetComponent<Player>().enabled = false;
         }
 
+        // Collision with checkpoint trigger.
         if(collision.gameObject.tag == "Checkpoint")
         {
             var checkpointController = collision.gameObject.GetComponent<CheckpointController>();
+            // If the touched checkpoint isn't the current one, set it as new current checkpoint.
             if (!checkpointController.IsCurrent)
             {
                 checkpointController.SetAsCurrentCheckpoint();
