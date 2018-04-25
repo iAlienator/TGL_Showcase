@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public GameObject Checkpoint;
     public float MovementSpeed;
     public float JumpVelocity;
     public float DownwardsAcceleration;
+    public float FallSpeed;
     public int JumpCount;
+    public float JumpGracePeriod;
 
     private Rigidbody2D rigidBody2D;
     private float horizontalInput;
@@ -15,6 +18,7 @@ public class Player : MonoBehaviour
     private bool touchingPlatform;
     private float previousVelocityY;
     private int jumpsLeft;
+    private float jumpGraceLeft;
 
     private void Awake()
     {
@@ -23,6 +27,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        if (Checkpoint != null)
+            MoveToCheckpoint();
+
         jumpsLeft = JumpCount;
     }
 
@@ -36,12 +43,18 @@ public class Player : MonoBehaviour
         }
         else
         {
+            if (grounded)
+                jumpGraceLeft = JumpGracePeriod;
             grounded = false;
         }
 
         // Accelerate downwards momentum.
         if (rigidBody2D.velocity.y < 0)
             rigidBody2D.velocity -= new Vector2(0, DownwardsAcceleration);
+
+        // Limit the maxium falling speed.
+        if (rigidBody2D.velocity.y < FallSpeed)
+            rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, FallSpeed);
 
         // Horizontal movement based on the horizontal input value and movement speed.
         rigidBody2D.velocity = new Vector2(horizontalInput * MovementSpeed, rigidBody2D.velocity.y);
@@ -57,6 +70,11 @@ public class Player : MonoBehaviour
             rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, JumpVelocity);
             jumpsLeft--;
         }
+    }
+
+    public void MoveToCheckpoint()
+    {
+        transform.position = new Vector3(Checkpoint.transform.position.x, Checkpoint.transform.position.y, transform.position.z);
     }
 
     public void SetHorizontalInput(float value)
@@ -76,6 +94,19 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Platform")
         {
             touchingPlatform = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Lethal")
+        {
+            GameManager.Instance.Restart();
+        }
+
+        if(collision.gameObject.tag == "Checkpoint")
+        {
+            Checkpoint = collision.gameObject;
         }
     }
 }
