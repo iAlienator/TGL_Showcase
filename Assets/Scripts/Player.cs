@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
 
     public void Jump()
     {
-        // Allow jumping if player is grounded, or if player has already jumped once and has jumps left.
+        // Allow jumping if player is grounded, has grace period left, or if player has already jumped once but still has jumps left.
         if ((isGrounded || jumpsLeft < JumpCount || jumpGraceLeft > 0) && jumpsLeft > 0)
         {
             rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, JumpVelocity);
