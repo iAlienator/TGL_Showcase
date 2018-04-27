@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1431379227113028}
+  m_RootGameObject: {fileID: 1768124302407078}
   m_IsPrefabParent: 1
---- !u!1 &1431379227113028
+--- !u!1 &1768124302407078
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4059071134015502}
-  - component: {fileID: 212898646447419988}
-  - component: {fileID: 61626315251821750}
-  - component: {fileID: 114758558107797312}
-  - component: {fileID: 114170238982446170}
+  - component: {fileID: 4250053813820596}
+  - component: {fileID: 212321819833868020}
+  - component: {fileID: 58644066990855978}
+  - component: {fileID: 114838285497969366}
+  - component: {fileID: 114093345738714862}
   m_Layer: 0
-  m_Name: Checkpoint
-  m_TagString: Checkpoint
+  m_Name: JumpExtender
+  m_TagString: JumpExtender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4059071134015502
+--- !u!4 &4250053813820596
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1431379227113028}
+  m_GameObject: {fileID: 1768124302407078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.5, y: 3.5, z: 0}
+  m_LocalPosition: {x: 70.5, y: 9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61626315251821750
-BoxCollider2D:
+--- !u!58 &58644066990855978
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1431379227113028}
+  m_GameObject: {fileID: 1768124302407078}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -56,24 +56,14 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
---- !u!114 &114170238982446170
+  m_Radius: 0.3
+--- !u!114 &114093345738714862
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1431379227113028}
+  m_GameObject: {fileID: 1768124302407078}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e985e398a0228f4caf02c18be187d49, type: 3}
@@ -81,26 +71,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MessagePrefab: {fileID: 1150626338046750, guid: 247cf881a9c3fa74494146ccbd0ce0c3,
     type: 2}
-  Text: Checkpoint!
---- !u!114 &114758558107797312
+  Text: Jumps +1
+--- !u!114 &114838285497969366
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1431379227113028}
+  m_GameObject: {fileID: 1768124302407078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d0f7891dc8438346bf41cc09b9da13c, type: 3}
+  m_Script: {fileID: 11500000, guid: 091ac547e6bb80f4d94acd3130a94cef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentAlpha: 1
-  NonCurrentAlpha: 0.3
---- !u!212 &212898646447419988
+  ResetTime: 3
+--- !u!212 &212321819833868020
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1431379227113028}
+  m_GameObject: {fileID: 1768124302407078}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -129,12 +118,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6974bf24c1c1dc847a9343a24721187c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 828584f07f0fd0f4ead3230e78d3b30e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

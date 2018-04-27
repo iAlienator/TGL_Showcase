@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public float JumpGracePeriod;
 
     private Rigidbody2D rigidBody2D;
-    private float horizontalInput;
+    private SpriteRenderer spriteRender;
     private bool isGrounded;
     private bool touchingPlatform;
     private float previousVelocityY;
@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
+
+        spriteRender = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -63,10 +65,17 @@ public class Player : MonoBehaviour
         if (rigidBody2D.velocity.y < FallSpeed)
             rigidBody2D.velocity = new Vector2(rigidBody2D.velocity.x, FallSpeed);
 
-        // Horizontal movement based on the horizontal input value and movement speed.
-        rigidBody2D.velocity = new Vector2(horizontalInput * MovementSpeed, rigidBody2D.velocity.y);
-
         previousVelocityY = rigidBody2D.velocity.y;
+    }
+
+    public void MoveHorizontally(float value)
+    {
+        if (!spriteRender.flipX && value < 0)
+            spriteRender.flipX = true;
+        else if (spriteRender.flipX && value > 0)
+            spriteRender.flipX = false;
+
+        rigidBody2D.velocity = new Vector2(value * MovementSpeed, rigidBody2D.velocity.y);
     }
 
     public void Jump()
@@ -86,17 +95,6 @@ public class Player : MonoBehaviour
         GetComponent<Player>().enabled = true;
 
         transform.position = new Vector3(Checkpoint.transform.position.x, Checkpoint.transform.position.y, transform.position.z);
-    }
-
-    public void SetHorizontalInput(float value)
-    {
-        // Flip the sprite based on the received input value.
-        if (!GetComponent<SpriteRenderer>().flipX && value < 0)
-            GetComponent<SpriteRenderer>().flipX = true;
-        else if(GetComponent<SpriteRenderer>().flipX && value > 0)
-            GetComponent<SpriteRenderer>().flipX = false;
-
-        horizontalInput = value;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -133,6 +131,17 @@ public class Player : MonoBehaviour
             {
                 checkpointController.SetAsCurrentCheckpoint();
                 Checkpoint = collision.gameObject;
+            }
+        }
+
+        // Collision with jump extender.
+        if (collision.gameObject.tag == "JumpExtender")
+        {
+            var jumpExtender = collision.gameObject.GetComponent<JumpExtenderController>();
+            if(jumpExtender.CanBeUsed && jumpsLeft < JumpCount)
+            {
+                jumpExtender.Use();
+                jumpsLeft++;
             }
         }
     }

@@ -7,6 +7,7 @@ TagManager:
   - Platform
   - Lethal
   - Checkpoint
+  - JumpExtender
   layers:
   - Default
   - TransparentFX

@@ -10,56 +10,14 @@ public class UIController : MonoBehaviour
     public Canvas GUICanvas;
     public Canvas YouDiedCanvas;
 
-    private void Awake()
-    {
-        GUICanvas.enabled = true;
-        YouDiedCanvas.enabled = false;
-    }
-
-    public void Update()
-    {
-        // In-editor button press simulation
-#if (UNITY_EDITOR)
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            Jump();
-        if (Input.GetKey(KeyCode.LeftArrow))
-            LeftHeld();
-        if (Input.GetKeyUp(KeyCode.LeftArrow))
-            LeftReleased();
-        if (Input.GetKey(KeyCode.RightArrow))
-            RightHeld();
-        if (Input.GetKeyUp(KeyCode.RightArrow))
-            RightReleased();
-#endif
-    }
+    //private void Awake()
+    //{
+    //    GUICanvas.enabled = true;
+    //    YouDiedCanvas.enabled = false;
+    //}
 
     public void SetDeathCount(int value)
     {
         DeathCountText.text = "Deaths: " + value;
-    }
-
-    public void Jump()
-    {
-        Player.Jump();
-    }
-
-    public void LeftHeld()
-    {
-        Player.SetHorizontalInput(-1);
-    }
-
-    public void LeftReleased()
-    {
-        Player.SetHorizontalInput(0);
-    }
-
-    public void RightHeld()
-    {
-        Player.SetHorizontalInput(1);
-    }
-
-    public void RightReleased()
-    {
-        Player.SetHorizontalInput(0);
     }
 }

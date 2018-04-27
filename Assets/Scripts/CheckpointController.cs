@@ -20,6 +20,12 @@ public class CheckpointController : MonoBehaviour
         SetAlpha(NonCurrentAlpha);
     }
 
+    public void SetAsCurrentCheckpoint()
+    {
+        OnCheckpointChanged(this, gameObject);
+        GetComponent<MessageAttacher>().ShowMessage();
+    }
+
     private void CheckpointController_OnCheckpointChanged(object sender, GameObject gameObject)
     {
         if (gameObject == this.gameObject)
@@ -32,11 +38,6 @@ public class CheckpointController : MonoBehaviour
             SetAlpha(NonCurrentAlpha);
             IsCurrent = false;
         }
-    }
-
-    public void SetAsCurrentCheckpoint()
-    {
-        OnCheckpointChanged(this, gameObject);
     }
 
     private void SetAlpha(float value)
