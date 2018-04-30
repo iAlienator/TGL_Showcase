@@ -13,6 +13,11 @@ public class PlayerControls : MonoBehaviour
         player = GetComponent<Player>();
     }
 
+    private void OnEnable()
+    {
+        horizontal = 0;
+    }
+
     private void Update()
     {
 // In-Editor movement testing.

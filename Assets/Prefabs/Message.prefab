@@ -83,7 +83,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150626338046750}
-  m_Text: Checkpoint!
+  m_Text: Jumps +1
   m_OffsetZ: 0
   m_CharacterSize: 0.02
   m_LineSpacing: 1

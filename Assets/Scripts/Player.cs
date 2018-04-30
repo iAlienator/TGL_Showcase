@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rigidBody2D;
     private SpriteRenderer spriteRender;
+    private Vector2 deathPosition;
     private bool isGrounded;
     private bool touchingPlatform;
     private float previousVelocityY;
@@ -25,7 +26,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-
         spriteRender = GetComponent<SpriteRenderer>();
     }
 
@@ -93,6 +93,8 @@ public class Player : MonoBehaviour
         // Make sure the player isn't dead and the script is enabled when moving back to the checkpoint.
         IsDead = false;
         GetComponent<Player>().enabled = true;
+        GetComponent<PlayerControls>().enabled = true;
+        GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
 
         transform.position = new Vector3(Checkpoint.transform.position.x, Checkpoint.transform.position.y, transform.position.z);
     }
@@ -119,7 +121,9 @@ public class Player : MonoBehaviour
         {
             DeathCount++;
             IsDead = true;
+            GetComponent<PlayerControls>().enabled = false;
             GetComponent<Player>().enabled = false;
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition | RigidbodyConstraints2D.FreezeRotation;
         }
 
         // Collision with checkpoint trigger.
